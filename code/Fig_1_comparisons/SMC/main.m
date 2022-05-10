@@ -104,13 +104,13 @@ saveas(gcf,'end SMC.fig')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                          PLOTS                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% plot metric of ergodicity as a function of time
-% time=dt:dt:dt*Nsteps;
-% figure;loglog(time(1:end),Ergodicity_Metric(1:end))
-% % axis([0.001 5 0.0001,1])
-% xlabel('Time (sec)');
-% ylabel('Coverage Metric, \phi(t)');
-% title('metric of ergodicity as a function of time')
+%% plot metric of ergodicity as a function of time
+time=dt:dt:dt*Nsteps;
+figure;loglog(time(1:end),Ergodicity_Metric(1:end))
+% axis([0.001 5 0.0001,1])
+xlabel('Time (sec)');
+ylabel('Coverage Metric, \phi(t)');
+title('metric of ergodicity as a function of time')
 % 
 %% plot "Bhatttacharyya distance" (between information distribution and time averaged statistics of trajectories) as a function of time
 time=dt:dt:dt*Nsteps;
