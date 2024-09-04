@@ -60,7 +60,7 @@ opt.erg.HK=[];% normalizer of fourier basis functions, will ber assigned in GetF
 opt.erg.muk=[];
 
 %% simulation params
-opt.sim.Nsteps = 10000;
+opt.sim.Nsteps = 2000;
 opt.sim.dt = 0.1;
 
 end
