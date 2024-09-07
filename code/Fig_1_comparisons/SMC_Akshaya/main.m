@@ -89,9 +89,9 @@ for it = 1:Nsteps
         traj_stat = traj_stat + timeAverageStatisticsDistribution( reshape(traj(:,iagent,1:2),Nsteps,2), opt); 
     end
     %%just for speed, draw every bla iterations
-%     if( mod(it,5) == 0)
-%         drawnow
-%     end
+    if( mod(it,5) == 0)
+        drawnow
+    end
     if (rem(it,100)==0)
         disp(it);
     end
