@@ -1,4 +1,4 @@
-function [X,Y,G] = GenerateUtilityMap(opt,addnoise)
+function [X,Y,G] = GenerateUtilityMap(opt)
 xdel=1;%resolution in x
 ydel=1;%resolution in y
 xRange=opt.DomainBounds.xmin:xdel:opt.DomainBounds.xmax-xdel;
@@ -6,11 +6,11 @@ yRange=opt.DomainBounds.ymin:ydel:opt.DomainBounds.ymax-ydel;
 
 [X,Y] = meshgrid(xRange,yRange);
 
-if (addnoise==1)
-    n=0.05;
-else
-    n=0;
-end
+% if (addnoise==1)
+%     n=0.05;
+% else
+%     n=0;
+% end
 
 %% infotrmation map presnted in howie's office last time
 m=[75 75];

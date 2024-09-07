@@ -3,7 +3,7 @@
 %%Biorobotics lab, The Robotics Institute, Carnegie Mellon University
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-clear all;clc;close all
+close all; clear variables; clc;
 %%
 [pose, opt] = initialization();
 addnoise=0;

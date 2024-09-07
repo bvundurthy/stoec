@@ -4,9 +4,9 @@ function [ pose,opt ] = initialization()
 opt=[];
 %% Domain bounds
 DomainBounds.xmin = 0.0;
-DomainBounds.xmax = 150.0;
+DomainBounds.xmax = 100.0;
 DomainBounds.ymin = 0.0;
-DomainBounds.ymax = 150.0;
+DomainBounds.ymax = 100.0;
 Lx = DomainBounds.xmax - DomainBounds.xmin;
 Ly = DomainBounds.ymax - DomainBounds.ymin;
 
@@ -25,19 +25,19 @@ end
 
 % forward velocity upper bound
 if ~isfield(opt, 'vub')
-    opt.vub = 2*ones(opt.nagents,1);
+    opt.vub = 4*ones(opt.nagents,1);
 end
 
 
 % angular velocity lower bound
 if ~isfield(opt, 'wlb')
-    opt.wlb = -0.2*ones(opt.nagents,1);
+    opt.wlb = -1*ones(opt.nagents,1);
 end
 
 
 % angular velocity upper bound
 if ~isfield(opt, 'wub')
-    opt.wub = 0.2*ones(opt.nagents,1);
+    opt.wub = 1*ones(opt.nagents,1);
 end
 
 
@@ -60,7 +60,7 @@ opt.erg.HK=[];% normalizer of fourier basis functions, will ber assigned in GetF
 opt.erg.muk=[];
 
 %% simulation params
-opt.sim.Nsteps = 2000;
+opt.sim.Nsteps = 1500;
 opt.sim.dt = 0.1;
 
 end
