@@ -7,7 +7,7 @@ close all; clear variables; clc;
 %%
 [pose, opt] = initialization();
 addnoise=0;
-[X,Y,informationMap] = GenerateUtilityMap(opt,addnoise);
+[X,Y,informationMap] = GenerateUtilityMap(opt);
 Z = zeros(size(X));
 
 % %%%overwrite utility
