@@ -69,7 +69,8 @@ for i = 1:size(peaks,1)
     view([-31.06163 21.91969]); 
     zlim([0 0.0054]); 
     % colormap('gray');
-    saveas(gcf, strcat('plot3d_',num2str(i),'.png')); 
+    % saveas(gcf, strcat('plot3d_',num2str(i),'.png')); 
+    exportgraphics(gca,strcat('plot3d_',num2str(i),'.png')); 
 
     figure(2);
     % set(gcf,'color','w'); 
@@ -78,8 +79,9 @@ for i = 1:size(peaks,1)
     colormap('gray');
     axis tight
     axis equal
-    saveas(gcf, strcat('plot2d_',num2str(i),'.png')); 
-    
+    set(gca,'visible','off')
+    % saveas(gcf, strcat('plot2d_',num2str(i),'.png')); 
+    exportgraphics(gca,strcat('plot2d_',num2str(i),'.png'))
 end
 
 % m=[30 30];
