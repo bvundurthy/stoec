@@ -4,9 +4,9 @@ function [ pose,opt ] = initialization()
 opt=[];
 %% Domain bounds
 DomainBounds.xmin = 0.0;
-DomainBounds.xmax = 150.0;
+DomainBounds.xmax = 100.0; % DrB 150
 DomainBounds.ymin = 0.0;
-DomainBounds.ymax = 150.0;
+DomainBounds.ymax = 100.0;  % DrB 150
 Lx = DomainBounds.xmax - DomainBounds.xmin;
 Ly = DomainBounds.ymax - DomainBounds.ymin;
 
@@ -16,7 +16,7 @@ opt.L = [Lx;Ly];
 %% Agents params: Velocity Bounds, number of agents... 
 
 % number of agents
-opt.nagents = 1;
+opt.nagents = 2;
 
 % forward velocity lower bound
 if ~isfield(opt, 'vlb')
@@ -25,25 +25,25 @@ end
 
 % forward velocity upper bound
 if ~isfield(opt, 'vub')
-    opt.vub = 5*ones(opt.nagents,1);
+    opt.vub = 2*ones(opt.nagents,1); %DrB 5*ones...
 end
 
 
 % angular velocity lower bound
 if ~isfield(opt, 'wlb')
-    opt.wlb = -0.2*ones(opt.nagents,1);
+    opt.wlb = -0.4*ones(opt.nagents,1); % DrB -0.2
 end
 
 
 % angular velocity upper bound
 if ~isfield(opt, 'wub')
-    opt.wub = 0.2*ones(opt.nagents,1);
+    opt.wub = 0.4*ones(opt.nagents,1); % DrB 0.2
 end
 
 
 %% Initializing agent locations
-pose.x = [140,20,25];
-pose.y = [20,120,125];
+pose.x = [70,20,25]; % DrB [140,20,25];
+pose.y = [20,80,25]; % DrB [20,120,125];
 pose.theta = 120*pi/180*ones(opt.nagents,1);
 %% ergodicity params
 
@@ -60,7 +60,7 @@ opt.erg.HK=[];% normalizer of fourier basis functions, will ber assigned in GetF
 opt.erg.muk=[];
 
 %% simulation params
-opt.sim.Nsteps = 3000;
+opt.sim.Nsteps = 2000; %10000
 opt.sim.dt = 0.1;
 
 end

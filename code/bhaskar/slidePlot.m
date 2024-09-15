@@ -2,6 +2,7 @@ close all
 clear variables
 clc
 
+drawfig = false; 
 opt=[];
 %% Domain bounds
 DomainBounds.xmin = 0.0;
@@ -62,26 +63,28 @@ for i = 1:size(peaks,1)
     
     Z = zeros(size(X));
     opt.erg.mu=reshape(infoMap,size(X));
-    
-    figure(1); 
-    % hold on
-    surf(X,Y,reshape(infoMap,size(X)));  % Bhaskar
-    view([-31.06163 21.91969]); 
-    zlim([0 0.0054]); 
-    % colormap('gray');
-    % saveas(gcf, strcat('plot3d_',num2str(i),'.png')); 
-    exportgraphics(gca,strcat('plot3d_',num2str(i),'.png')); 
 
-    figure(2);
-    % set(gcf,'color','w'); 
-    % hold on
-    surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
-    colormap('gray');
-    axis tight
-    axis equal
-    set(gca,'visible','off')
-    % saveas(gcf, strcat('plot2d_',num2str(i),'.png')); 
-    exportgraphics(gca,strcat('plot2d_',num2str(i),'.png'))
+    if drawfig
+        figure(1); 
+        % hold on
+        surf(X,Y,reshape(infoMap,size(X)));  % Bhaskar
+        view([-31.06163 21.91969]); 
+        zlim([0 0.0054]); 
+        % colormap('gray');
+        % saveas(gcf, strcat('plot3d_',num2str(i),'.png')); 
+        exportgraphics(gca,strcat('plot3d_',num2str(i),'.png')); 
+    
+        figure(2);
+        % set(gcf,'color','w'); 
+        % hold on
+        surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+        colormap('gray');
+        axis tight
+        axis equal
+        set(gca,'visible','off')
+        % saveas(gcf, strcat('plot2d_',num2str(i),'.png')); 
+        exportgraphics(gca,strcat('plot2d_',num2str(i),'.png'));
+    end
 end
 
 % m=[30 30];
