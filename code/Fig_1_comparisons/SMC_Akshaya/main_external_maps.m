@@ -8,7 +8,7 @@ close all; clear variables; clc;
 
 simtime = NaN(654,1); 
 ergodicities = NaN(654,1); 
-for maps = 5%:654
+for maps = 535 %1:654
     fprintf('map number: %d\n',maps);
     clearvars -except maps simtime ergodicities
     tic
@@ -44,13 +44,23 @@ for maps = 5%:654
     opt.kdOBJ = KDTreeSearcher([X(:),Y(:)]);%to eval traj cost by closest point
     
     %% Plot utility 
-    figure(1);set(gcf,'color','w'); hold on
+    figure(maps);set(gcf,'color','w'); hold on
     info_map = reshape(informationMap,size(X)); 
-    surface(X,Y,Z,info_map, 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+    % surface(X,Y,Z,info_map, 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+    surface(X,Y,Z,reshape(info_map,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
     % figure; surf(X,Y,reshape(informationMap,size(X))); % Bhaskar
+    colormap('gray'); 
     axis tight
     axis equal
-    colorbar;
+    % colorbar;
+    % exportgraphics(gca, strcat('map',num2str(maps),'.jpg')); 
+    % if floor(maps/10) == (maps/10)
+    %     disp('verify');
+    % end
+    % close all; 
+    % continue; 
+
+
     %% EEE function value
     
     % mat_size = size(X); 
@@ -77,7 +87,7 @@ for maps = 5%:654
     for iagent = 1:opt.nagents
         % scatter(pose.x(iagent),pose.y(iagent),'filled','MarkerFaceColor',[0,0,0],'MarkerEdgeColor',[1,1,1]);%plot posistion of agents initially
     %     text(pose.x,pose.y,'\leftarrow start','Color','r')
-        h(iagent) = plot(pose.x(iagent),pose.y(iagent), 'Marker', 'o', 'MarkerSize', 2,'Color', [0,0,0]);    
+        h(iagent) = plot(pose.x(iagent),pose.y(iagent), 'Marker', 'o', 'MarkerSize', 2,'Color', 'y');    
     end
     
     traj = zeros(Nsteps, opt.nagents, 3);%%(iteration * agent * [x,y])        

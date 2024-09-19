@@ -56,28 +56,28 @@ for iagent = 1:Nagents
         pose.theta(iagent) = pose.theta(iagent)+ w*dt;
     
     %No Need for this! % reflecting agent in case it goes out of domain bounds
-%      [pose.x(iagent),pose.y(iagent)] = reflect_agent(pose.x(iagent),pose.y(iagent), opt.DomainBounds);
+     [pose.x(iagent),pose.y(iagent)] = reflect_agent(pose.x(iagent),pose.y(iagent), opt.DomainBounds, opt.reflectThreshold);
 end
 
 end
 
-function [agentx, agenty] = reflect_agent(agentx,agenty, DomainBounds)
+function [agentx, agenty] = reflect_agent(agentx,agenty, DomainBounds, threshold)
 
-    xmin = DomainBounds.xmin;
-    xmax = DomainBounds.xmax;
-    ymin = DomainBounds.ymin;
-    ymax = DomainBounds.ymax;
+    xmin = DomainBounds.xmin + threshold;
+    xmax = DomainBounds.xmax - threshold;
+    ymin = DomainBounds.ymin + threshold;
+    ymax = DomainBounds.ymax - threshold;
 
-    if agentx < xmin
+    if agentx < (xmin)
         agentx = xmin + (xmin - agentx);
     end
-    if agentx > xmax
+    if agentx > (xmax)
         agentx = xmax - (agentx - xmax);
     end
-    if agenty < ymin
+    if agenty < (ymin)
         agenty = ymin + (ymin - agenty);
     end
-    if agenty > ymax
+    if agenty > (ymax)
         agenty = ymax - (agenty - ymax);
     end
 

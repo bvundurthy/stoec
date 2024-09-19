@@ -43,7 +43,6 @@ end
 
 informationMap = infoMap; 
 
-
 %% Continuing older code here...
 % %%%overwrite utility
 % img = im2double(rgb2gray(imread('apple.jpg')));

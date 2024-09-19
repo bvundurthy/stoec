@@ -12,11 +12,12 @@ Ly = DomainBounds.ymax - DomainBounds.ymin;
 
 opt.DomainBounds = DomainBounds;
 opt.L = [Lx;Ly];
+opt.reflectThreshold = 2; 
 
 %% Agents params: Velocity Bounds, number of agents... 
 
 % number of agents
-opt.nagents = 2;
+opt.nagents = 1;
 
 % forward velocity lower bound
 if ~isfield(opt, 'vlb')
@@ -42,8 +43,8 @@ end
 
 
 %% Initializing agent locations
-pose.x = [70,20,25]; % DrB [140,20,25];
-pose.y = [20,80,25]; % DrB [20,120,125];
+pose.x = [60,20,25]; % DrB [70,20,25](slides) [140,20,25];
+pose.y = [30,80,25]; % DrB [20,80,25](slides) [20,120,125];
 pose.theta = 120*pi/180*ones(opt.nagents,1);
 %% ergodicity params
 
@@ -60,7 +61,7 @@ opt.erg.HK=[];% normalizer of fourier basis functions, will ber assigned in GetF
 opt.erg.muk=[];
 
 %% simulation params
-opt.sim.Nsteps = 2000; %10000
+opt.sim.Nsteps = 8000; %10000
 opt.sim.dt = 0.1;
 
 end
