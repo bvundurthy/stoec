@@ -1,4 +1,19 @@
-function [X,Y,G] = GenerateUtilityMap(opt,addnoise)
+
+opt=[];
+%% Domain bounds
+DomainBounds.xmin = 0.0;
+DomainBounds.xmax = 100.0; % DrB 150
+DomainBounds.ymin = 0.0;
+DomainBounds.ymax = 100.0;  % DrB 150
+Lx = DomainBounds.xmax - DomainBounds.xmin;
+Ly = DomainBounds.ymax - DomainBounds.ymin;
+
+opt.DomainBounds = DomainBounds;
+opt.L = [Lx;Ly];
+opt.reflectThreshold = 2; 
+
+
+
 xdel=1;%resolution in x
 ydel=1;%resolution in y
 xRange=opt.DomainBounds.xmin:xdel:opt.DomainBounds.xmax-xdel;
@@ -37,5 +52,5 @@ G=max(G,0); %crop below 0
 G=G./max(G); %normalize
 G = G./sum(sum(G));
 
-end
+% end
 
