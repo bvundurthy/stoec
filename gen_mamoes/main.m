@@ -8,90 +8,22 @@
 close all; clear variables; clc;
 tic
 
-run("Step0_parameters.m"); 
-
-
-
-addnoise=0;
-[X,Y,informationMap] = GenerateUtilityMap(opt,addnoise);
-Z = zeros(size(X));
-
-%% Made to create slides for Howie by Bhaskar - Sept 14, 2024
-% peaks = [30 30; 
-%          35 35; 
-%          25 25; 
-%          25 35; 
-%          35 25; 
-%          70 70; 
-%          65 65; 
-%          75 75;
-%          65 75; 
-%          75 65;
-%          ]; 
-% 
-% for i = 1:size(peaks,1)
-%     close all; 
-%     m=peaks(i,:);
-%     s=30*eye(2);
-% 
-%     G1 = mvnpdf([X(:), Y(:)],m,s);
-%     if i==1
-%         pdfMap = G1; 
-%     else 
-%         pdfMap=(pdfMap + G1);
-%     end
-% 
-%     infoMap = i*pdfMap; 
-%     infoMap=max(infoMap,0); %crop below 0
-%     infoMap=infoMap./max(infoMap); %normalize
-%     infoMap = infoMap./sum(sum(infoMap));
-% end
-% 
-% informationMap = infoMap; 
-
-%% Import info maps from akshaya's collection
-% maps in slides: 535, 536, 537, 538, 539 
-map1 = double(py.numpy.load(strcat(num2str(535),'.npy')));
-
-map2 = double(py.numpy.load(strcat(num2str(536),'.npy')));
-
-map12 = map1+map2; 
-map12 = map12./max(map12); 
-map12 = map12./sum(sum(map12)); 
-
-
-% map3 = double(py.numpy.load(strcat(num2str(537),'.npy')));
-
-informationMap = map12;
-drawMap = map12; 
-
-
+run("S1_agentParams.m"); 
+run("S2_mapParams.m"); 
+run("S3_ergOptParams.m"); 
 
 %% Continuing older code here...
-% %%%overwrite utility
-% img = im2double(rgb2gray(imread('apple.jpg')));
-% img = imresize(img,[150,150]);
-% img =  imbinarize(img);
-% %imshow(img);
-% informationMap = flip(img);
-% informationMap = informationMap./sum(sum(informationMap));
-% %%%
 
 
-opt.erg.mu=reshape(informationMap,size(X));
-%%%%%%%%%%%% not necessary anymore...I transposed the muk matrix inside
-%GetFourierCoeff
-    %         opt.erg.mu=flipud(opt.erg.mu);
-    %         opt.erg.mu=imrotate(opt.erg.mu,-90);
-    %         imshow(opt.erg.mu)
-%%%%%%%%%%%%%
-opt.erg.mu = opt.erg.mu/sum(sum(opt.erg.mu));% normalize iformation distribution
-[opt.erg.muk, opt.erg.HK] = GetFourierCoeff(opt,X,Y);
-opt.kdOBJ = KDTreeSearcher([X(:),Y(:)]);%to eval traj cost by closest point
+
+ergs.mu=reshape(infoMap,size(X));
+ergs.mu = ergs.mu/sum(sum(ergs.mu));% normalize iformation distribution
+[ergs.muk, ergs.HK] = GetFourierCoeff(opt,X,Y);
+opts.kdOBJ = KDTreeSearcher([X(:),Y(:)]);%to eval traj cost by closest point
 
 %% Plot utility 
 figure(1);set(gcf,'color','w'); hold on
-% surface(X,Y,Z,reshape(informationMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+% surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
 surface(X,Y,Z,reshape(drawMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
 colormap('gray'); 
 axis tight
@@ -104,7 +36,7 @@ Nsteps = opt.sim.Nsteps;
 dt = opt.sim.dt;
 
 % Initializing Fourier coefficients of coverage distribution
-Ck = zeros(opt.erg.Nkx, opt.erg.Nky);
+Ck = zeros(ergs.Nkx, ergs.Nky);
 figure(1);
 colors= {'k','g','m'};
 Ergodicity_Metric = zeros(Nsteps,1);
@@ -130,7 +62,7 @@ for it = 1:Nsteps
     % end
     time = (it) * dt;
     [pose, Ck] = SMC_Update(pose, Ck, time, opt);
-    traj_stat = zeros(size(opt.erg.mu(:)));
+    traj_stat = zeros(size(ergs.mu(:)));
     for iagent = 1:opt.nagents
         traj(it,iagent,1)= pose.x(iagent);
         traj(it,iagent,2)= pose.y(iagent);
@@ -215,7 +147,7 @@ close (v); % DrB
 % 
 % %t = 0
 % figure(1);set(gcf,'color','w'); hold on
-% surface(X,Y,Z,reshape(informationMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+% surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
 % axis tight
 % axis equal
 % colorbar;
@@ -224,7 +156,7 @@ close (v); % DrB
 % 
 % %t = 500 sec
 % figure(2);set(gcf,'color','w'); hold on
-% surface(X,Y,Z,reshape(informationMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+% surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
 % axis tight
 % axis equal
 % colorbar;
@@ -234,7 +166,7 @@ close (v); % DrB
 % 
 % %t = 1000 sec
 % figure(3);set(gcf,'color','w'); hold on
-% surface(X,Y,Z,reshape(informationMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
+% surface(X,Y,Z,reshape(infoMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');
 % axis tight
 % axis equal
 % colorbar;

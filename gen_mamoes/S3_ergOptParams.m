@@ -1,17 +1,27 @@
-%% ergodicity and optimization params
+%% ergodicity, optimization and figure params
 
-opt.erg.s=1.5;%parameter of soblev norm
+ergs.s=1.5; % parameter of soblev norm
 
-opt.erg.Nkx = 50;
-opt.erg.Nky = 50;
-%%%used in calculation CK and Bj in SMC update
-opt.erg.KX = (0:opt.erg.Nkx-1)' * ones(1,opt.erg.Nky);
-opt.erg.KY = ones(opt.erg.Nkx,1) * (0:opt.erg.Nky-1);
-opt.erg.LK = 1.0 ./ ((1.0 + opt.erg.KX.^2 + opt.erg.KY.^2).^opt.erg.s);
-%%%
-opt.erg.HK=[];% normalizer of fourier basis functions, will ber assigned in GetFourierCoeff and used in multiple places
-opt.erg.muk=[];
+ergs.Nkx = 50;
+ergs.Nky = 50;
 
-%% simulation params
-opt.sim.Nsteps = 8000; %10000
-opt.sim.dt = 0.1;
+%% Parameters for computing C_K and B_j in SMC update
+
+ergs.KX = (0:ergs.Nkx-1)' * ones(1,ergs.Nky);
+ergs.KY = ones(ergs.Nkx,1) * (0:ergs.Nky-1);
+ergs.LK = 1.0 ./ ((1.0 + ergs.KX.^2 + ergs.KY.^2).^ergs.s);
+
+% These might have to be moved to within the ergodicity function
+ergs.HK=[]; % normalizer of fourier basis functions, will be assigned in GetFourierCoeff and used in multiple places
+ergs.muk=[];
+
+%% simulation parameters
+opts.Nsteps = 8000; %10000
+opts.dt = 0.1;
+
+%% Figure parameters
+
+figs.video = false; 
+figs.animate = false; 
+figs.ergodicity = false; 
+figs.bhattacharya = false; 
