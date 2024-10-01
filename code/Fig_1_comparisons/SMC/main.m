@@ -3,7 +3,7 @@
 %%Biorobotics lab, The Robotics Institute, Carnegie Mellon University
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-clear all;clc;close all
+clear all;clc;close all; tic
 %%
 [pose, opt] = initialization();
 addnoise=0;
@@ -65,7 +65,7 @@ opt.erg.mu=reshape(informationMap,size(X));
 opt.erg.mu = opt.erg.mu/sum(sum(opt.erg.mu));% normalize iformation distribution
 [opt.erg.muk, opt.erg.HK] = GetFourierCoeff(opt,X,Y);
 opt.kdOBJ = KDTreeSearcher([X(:),Y(:)]);%to eval traj cost by closest point
-
+toc
 %% Plot utility 
 figure(1);set(gcf,'color','w'); hold on
 surface(X,Y,Z,reshape(informationMap,size(X)), 'FaceColor','interp', 'EdgeColor','interp','Marker','.');

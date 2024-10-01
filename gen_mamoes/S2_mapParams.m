@@ -5,10 +5,9 @@ maps.xmin = 0.0;
 maps.xmax = 100.0; 
 maps.ymin = 0.0;
 maps.ymax = 100.0; 
-Lx = maps.xmax - maps.xmin;
-Ly = maps.ymax - maps.ymin;
+maps.Lx = maps.xmax - maps.xmin;
+maps.Ly = maps.ymax - maps.ymin;
 
-maps.L = [Lx;Ly];
 maps.reflectThreshold = 2; 
 
 xdel=1; %resolution in x
@@ -17,8 +16,8 @@ ydel=1; %resolution in y
 xRange=maps.xmin:xdel:maps.xmax-xdel;
 yRange=maps.ymin:ydel:maps.ymax-ydel;
 
-[X,Y] = meshgrid(xRange,yRange);
-Z = zeros(size(X)); 
+[maps.X,maps.Y] = meshgrid(xRange,yRange);
+Z = zeros(size(maps.X)); 
 
 %% Create information maps for ergodic search
 % The following presents examples of different maps and map generation 
@@ -32,9 +31,9 @@ Z = zeros(size(X));
 % m3=[60 100];    % Center of the peak        % [120 120]; 
 % s3=60*eye(2);   % Variance in the peak      % 600*eye(2); 
 % 
-% map1Temp = mvnpdf([X(:), Y(:)],m1,s1);
-% map2Temp = mvnpdf([X(:), Y(:)],m2,s2);
-% map3Temp = mvnpdf([X(:), Y(:)],m3,s3);
+% map1Temp = mvnpdf([maps.X(:), maps.Y(:)],m1,s1);
+% map2Temp = mvnpdf([maps.X(:), maps.Y(:)],m2,s2);
+% map3Temp = mvnpdf([maps.X(:), maps.Y(:)],m3,s3);
 % mapTemp = (map1Temp + 3 * map2Temp + 2 * map3Temp); % Scalarized map
 % mapTemp = max(mapTemp,0);               % crop below 0
 % mapTemp = mapTemp./max(mapTemp);        % all values are brought to <=1
@@ -46,16 +45,16 @@ Z = zeros(size(X));
 % This example will help introduce information maps in the slides
 % See slide deck Generalized_MAMOES Ver 6 from Sept 19th, 2024
 
-peaks = [   30  35  25  25  25  70  65  75  65  75; 
+peaks = [   30  35  25  25  35  70  65  75  65  75; 
             30  35  25  35  25  70  65  75  75  65;]';
 
-pdfMap = zeros(numel(X), 1); 
+pdfMap = zeros(numel(maps.X), 1); 
 for i = 1:size(peaks,1)
     % close all; 
     m=peaks(i,:);
     s=30*eye(2);
 
-    mapTemp = mvnpdf([X(:), Y(:)],m,s);
+    mapTemp = mvnpdf([maps.X(:), maps.Y(:)],m,s);
     pdfMap=(pdfMap + mapTemp);
 
     infoMap = i*pdfMap; 

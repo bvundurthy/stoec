@@ -11,17 +11,18 @@ ergs.KX = (0:ergs.Nkx-1)' * ones(1,ergs.Nky);
 ergs.KY = ones(ergs.Nkx,1) * (0:ergs.Nky-1);
 ergs.LK = 1.0 ./ ((1.0 + ergs.KX.^2 + ergs.KY.^2).^ergs.s);
 
-% These might have to be moved to within the ergodicity function
-ergs.HK=[]; % normalizer of fourier basis functions, will be assigned in GetFourierCoeff and used in multiple places
-ergs.muk=[];
+% % ???? These might have to be moved to within the ergodicity function 
+% % Check code right after run() X3 in main.m
+% ergs.HK=[]; % normalizer of fourier basis functions, will be assigned in GetFourierCoeff and used in multiple places
+% ergs.muk=[];
 
 %% simulation parameters
-opts.Nsteps = 8000; %10000
+opts.Nsteps = 3000; %10000
 opts.dt = 0.1;
 
 %% Figure parameters
-
+figs.image = true; 
+figs.color = false; 
 figs.video = false; 
 figs.animate = false; 
 figs.ergodicity = false; 
-figs.bhattacharya = false; 
