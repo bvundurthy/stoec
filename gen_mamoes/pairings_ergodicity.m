@@ -173,7 +173,9 @@ if figs.image
     colors = flip(ff2n(3)); % Neat way of creating a binary rep of numbers 0-7 as a vector
     for iagent = 1:Nagents
         scatter(robs.initX(iagent), robs.initY(iagent),'filled','MarkerFaceColor',colors(iagent+1,:));
-        plot(traj(1:Nsteps,iagent,1),traj(1:Nsteps,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
+        if ~figs.animate
+            plot(traj(1:Nsteps,iagent,1),traj(1:Nsteps,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
+        end
         scatter(traj(Nsteps,iagent,1), traj(Nsteps,iagent,2),'filled', 'Marker', 's', 'MarkerFaceColor',colors(iagent+1,:));
     end
 end

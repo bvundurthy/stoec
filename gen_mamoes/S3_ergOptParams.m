@@ -24,5 +24,5 @@ opts.dt = 0.1;
 figs.image = true; 
 figs.color = false; 
 figs.video = false; 
-figs.animate = false; 
+figs.animate = true; 
 figs.ergodicity = false; 
