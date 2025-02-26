@@ -172,11 +172,14 @@ if figs.image
     % Plot agent initial and final positions along with the trajectory
     colors = flip(ff2n(3)); % Neat way of creating a binary rep of numbers 0-7 as a vector
     for iagent = 1:Nagents
-        scatter(robs.initX(iagent), robs.initY(iagent),'filled','MarkerFaceColor',colors(iagent+1,:));
+        % scatter(robs.initX(iagent), robs.initY(iagent),'filled','MarkerFaceColor',colors(iagent+1,:));
+        scatter(robs.initX(iagent), robs.initY(iagent),'filled','MarkerFaceColor', 'c');
         if ~figs.animate
-            plot(traj(1:Nsteps,iagent,1),traj(1:Nsteps,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
+            % plot(traj(1:Nsteps,iagent,1),traj(1:Nsteps,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
+            plot(traj(1:Nsteps,iagent,1),traj(1:Nsteps,iagent,2),'Color','c', 'LineWidth', 2);
         end
-        scatter(traj(Nsteps,iagent,1), traj(Nsteps,iagent,2),'filled', 'Marker', 's', 'MarkerFaceColor',colors(iagent+1,:));
+        % scatter(traj(Nsteps,iagent,1), traj(Nsteps,iagent,2),'filled', 'Marker', 's', 'MarkerFaceColor', colors(iagent+1,:));
+        % scatter(traj(Nsteps,iagent,1), traj(Nsteps,iagent,2),'filled', 'Marker', 's', 'MarkerFaceColor', 'c');        
     end
 end
 
@@ -189,8 +192,9 @@ if figs.animate
     for it = 1:Nsteps
         for iagent = 1:Nagents
             if( mod(it,10) == 0)
-                plot(traj(1:it,iagent,1),traj(1:it,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
-                pause(0.005); 
+                % plot(traj(1:it,iagent,1),traj(1:it,iagent,2),'Color',colors(iagent+1,:), 'LineWidth', 2);
+                plot(traj(1:it,iagent,1),traj(1:it,iagent,2),'Color', 'c', 'LineWidth', 2);
+                pause(0.01); 
                 if figs.video
                     frame = getframe(gcf); %DrB
                     writeVideo(v,frame); %DrB
@@ -198,6 +202,7 @@ if figs.animate
             end
         end
     end
+    close(v);
 end
 
 if figs.ergodicity

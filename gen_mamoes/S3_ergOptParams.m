@@ -17,12 +17,12 @@ ergs.LK = 1.0 ./ ((1.0 + ergs.KX.^2 + ergs.KY.^2).^ergs.s);
 % ergs.muk=[];
 
 %% simulation parameters
-opts.Nsteps = 3000; %10000
+opts.Nsteps = 10000; % 3000;
 opts.dt = 0.1;
 
 %% Figure parameters
 figs.image = true; 
 figs.color = false; 
-figs.video = false; 
+figs.video = true; 
 figs.animate = true; 
-figs.ergodicity = false; 
+figs.ergodicity = true; 
